@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSYCHO & CJ</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+            color: #490a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+            background-color: black; /* لون الخلفية */
+        }
+
+        .background-video {
+            position: fixed; /* جعل الفيديو في وضع ثابت لتغطية الشاشة */
+            top: 0;
+            left: 0;
+            width: 100%;  /* جعل الفيديو يملأ الشاشة بالكامل */
+            height: 100%; /* التأكد من أن الفيديو يغطي كامل الشاشة */
+            object-fit: cover; /* جعل الفيديو يغطى الشاشة بالكامل مع الحفاظ على النسب */
+            z-index: -1; /* وضع الفيديو في الخلفية */
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            margin-top: 100px; /* جعل النصوص تتحرك للأسفل بشكل أكبر */
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 1.5em;
+            background: linear-gradient(45deg, white, white, white);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5), 0px 0px 15px rgba(255, 255, 255, 0.5), 0px 0px 25px rgba(123, 255, 212, 0.5);
+            letter-spacing: 4.5px;
+            white-space: pre-wrap;
+        }
+
+        .text {
+            margin-top: 30px;
+            font-size: 3em;
+            background: linear-gradient(45deg, white, white,white );
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5), 0px 0px 15px rgba(255, 255, 255, 0.5), 0px 0px 25px rgba(255, 255, 255, 0.5);
+            letter-spacing: 4.5px;
+        }
+
+        .marquee {
+            position: absolute;
+            top: 10%;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee span {
+            display: inline-block;
+            font-size: 2em;
+            color: #ff0000;
+            text-shadow: 0px 0px 8px #ff0000, 0px 0px 15px #ff0000, 0px 0px 25px #ff0000;
+            animation: scroll 10s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+    <!-- الفيديو الذي يظهر في الخلفية -->
+    <video class="background-video" autoplay loop muted>
+        <source src="https://cdn.discordapp.com/attachments/1271893270817013862/1324261841752559706/1ff0c7d2-bb53-4842-81a4-73dad980c85f.mp4?ex=67778272&is=677630f2&hm=9f473eae9d0482c340fd0bb722f3c024d4b59390ca30db5c68d90459055b4733&" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- الصوت -->
+    <audio autoplay loop>
+        <source src="https://cdn.discordapp.com/attachments/1271893270817013862/1324261841752559706/1ff0c7d2-bb53-4842-81a4-73dad980c85f.mp4?ex=67778272&is=677630f2&hm=9f473eae9d0482c340fd0bb722f3c024d4b59390ca30db5c68d90459055b4733&" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- النصوص -->
+    <div class="content">
+        <div class="info" id="ip-info">Loading IP Info...</div>
+        <div class="text">discord.gg/5-1</div>
+    </div>
+
+    <script>
+        // Fetch IP information
+        fetch('')
+            .then(response => response.json())
+            .then(data => {
+                const info = {
+                    ip: data.ip,
+                    city: data.city,
+                    region: data.region,
+                    country: data.country,
+                    loc: data.loc,
+                    org: data.org,
+                    timezone: data.timezone
+                };
+                document.getElementById('ip-info').innerText = JSON.stringify(info, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('ip-info').innerText = 'مافي خنيث غيرك ياقحبه بنعاليي يلاااا';
+                console.error('Error fetching IP info:', error);
+            });
+    </script>
+</body>
+</html>
